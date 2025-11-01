@@ -1,5 +1,4 @@
 #include "ofxSliderGroup.h"
-using namespace std;
 
 template<class VecType>
 ofxVecSlider_<VecType>::ofxVecSlider_(ofParameter<VecType> value, float width, float height){
@@ -9,11 +8,11 @@ ofxVecSlider_<VecType>::ofxVecSlider_(ofParameter<VecType> value, float width, f
 
 template<class VecType>
 ofxVecSlider_<VecType> * ofxVecSlider_<VecType>::setup(ofParameter<VecType> value, float width, float height){
-    ofxGuiGroup::setup(value.getName(), "", 0, 0);
+    ofxGuiGroup::setup(value.getName(), {}, 0, 0);
     
     parameters.clear();
 	listeners.unsubscribeAll();
-    const string names[4] = {"x", "y", "z", "w"};
+    const std::string names[4] = {"x", "y", "z", "w"};
     
     this->value.makeReferenceTo(value);
 	listeners.push(this->value.newListener(this, & ofxVecSlider_::changeValue));
@@ -127,10 +126,10 @@ ofxColorSlider_<ColorType>::ofxColorSlider_(ofParameter<ofColor_<ColorType> > va
 
 template<class ColorType>
 ofxColorSlider_<ColorType> * ofxColorSlider_<ColorType>::setup(ofParameter<ofColor_<ColorType> > value, float width, float height){
-    ofxGuiGroup::setup(value.getName(), "", 0, 0);
+	ofxGuiGroup::setup(value.getName(), {}, 0, 0);
     parameters.clear();
 
-	const string names[4] = {"r", "g", "b", "a"};
+	const std::string names[4] = {"r", "g", "b", "a"};
 
     ofColor_<ColorType> val = value;
     ofColor_<ColorType> min = value.getMin();
@@ -258,7 +257,7 @@ ofxRectangleSlider::ofxRectangleSlider(ofParameter<ofRectangle> value, float wid
 
 
 ofxRectangleSlider * ofxRectangleSlider::setup(ofParameter<ofRectangle> value, float width, float height){
-    ofxGuiGroup::setup(value.getName(), "", 0, 0);
+    ofxGuiGroup::setup(value.getName(), {}, 0, 0);
     
     parameters.clear();
     

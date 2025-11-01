@@ -67,7 +67,10 @@
  
  */
 
-#if !TARGET_IPHONE_SIMULATOR
+
+#include "ofxiOSConstants.h"
+#if defined(OF_OPEN_AL) && !TARGET_IPHONE_SIMULATOR && !TARGET_TVOS_SIMULATOR
+#include "SoundEngine.h"
 /*==================================================================================================
 	SoundEngine.cpp
 ==================================================================================================*/
@@ -86,10 +89,11 @@
 #include <pthread.h>
 #include <mach/mach.h>
 #include <iostream>
-using namespace std;
 
-// Local Includes
-#include "SoundEngine.h"
+using std::cout;
+using std::endl;
+
+
 
 #define	AssertNoError(inMessage, inHandler)						\
 			if(result != noErr)									\

@@ -1,10 +1,17 @@
-#include "ofConstants.h"
 #include "ofFbo.h"
-#include "ofAppRunner.h"
-#include "ofUtils.h"
-#include "ofGraphics.h"
-#include "ofGLRenderer.h"
-#include <map>
+// #include "ofAppRunner.h"
+// #include "ofUtils.h"
+// #include "ofGraphics.h"
+
+// #include "ofGLRenderer.h"
+#include "ofBufferObject.h"
+#include "ofGLUtils.h"
+#include "ofLog.h"
+#include "ofPixels.h"
+
+// MARK: Targets
+// #include "ofConstants.h"
+#include <unordered_map>
 
 #ifdef TARGET_OPENGLES
 #include <dlfcn.h>
@@ -13,7 +20,8 @@
 #include "ofxAndroidUtils.h"
 #endif
 
-using namespace std;
+using std::unordered_map;
+using std::vector;
 
 /*
 
@@ -164,8 +172,8 @@ bool ofFboSettings::operator!=(const ofFboSettings & other){
 }
 
 //--------------------------------------------------------------
-static map<GLuint,int> & getIdsFB(){
-	static map<GLuint,int> * idsFB = new map<GLuint,int>;
+static unordered_map<GLuint,int> & getIdsFB(){
+	static unordered_map<GLuint,int> * idsFB = new unordered_map<GLuint,int>;
 	return *idsFB;
 }
 
@@ -193,8 +201,8 @@ static void releaseFB(GLuint id){
 }
 
 //--------------------------------------------------------------
-static map<GLuint,int> & getIdsRB(){
-	static map<GLuint,int> * idsRB = new map<GLuint,int>;
+static unordered_map<GLuint,int> & getIdsRB(){
+	static unordered_map<GLuint,int> * idsRB = new unordered_map<GLuint,int>;
 	return *idsRB;
 }
 
@@ -918,7 +926,7 @@ void ofFbo::flagDirty() const{
 		// flagged dirty at activation, so we can be sure all buffers which have 
 		// been rendered to are flagged dirty.
 		// 
-		int numBuffersToFlag = min(dirty.size(), activeDrawBuffers.size());
+		int numBuffersToFlag = std::min(dirty.size(), activeDrawBuffers.size());
 		for(int i=0; i < numBuffersToFlag; i++){
 			dirty[i] = true;
 		}

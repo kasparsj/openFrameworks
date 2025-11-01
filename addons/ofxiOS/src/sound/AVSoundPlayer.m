@@ -4,9 +4,10 @@
 //  http://julapy.com/blog
 //
 
+#include "ofxiOSConstants.h"
+#if defined(OF_IOS_AVSOUNDPLAYER)
 #import "AVSoundPlayer.h"
 #include <TargetConditionals.h>
-
 @interface AVSoundPlayer() {
     BOOL bMultiPlay;
 }
@@ -14,11 +15,7 @@
 
 @implementation AVSoundPlayer
 
-@synthesize delegate;
-@synthesize player;
-@synthesize timer;
-
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if(self) {
         bMultiPlay = NO;
@@ -61,7 +58,6 @@
 
 - (void)dealloc {
     [self unloadSound];
-    [super dealloc];
 }
 
 //----------------------------------------------------------- load / unload.
@@ -81,8 +77,8 @@
     [self unloadSound];
 	[self setupSharedSession];
     NSError * error = nil;
-    self.player = [[[AVAudioPlayer alloc] initWithContentsOfURL:url
-                                                          error:&error] autorelease];
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url
+                                                         error:&error];
     if([self.player respondsToSelector:@selector(setEnableRate:)]) {
         [self.player setEnableRate:YES];
     }
@@ -219,6 +215,13 @@
     return self.player.currentTime * 1000;
 }
 
+- (float)duration {
+	if(self.player == nil) {
+		return 0.f;
+	}
+	return self.player.duration;
+}
+
 //----------------------------------------------------------- timer.
 - (void)updateTimer {
     if([self.delegate respondsToSelector:@selector(soundPlayerDidChange)]) {
@@ -268,3 +271,4 @@
 }
 
 @end
+#endif

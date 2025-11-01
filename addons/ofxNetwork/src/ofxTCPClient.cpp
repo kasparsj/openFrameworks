@@ -3,7 +3,7 @@
 #include "ofxNetworkUtils.h"
 #include "ofLog.h"
 
-using namespace std;
+using std::string;
 
 //--------------------------
 ofxTCPClient::ofxTCPClient(){
@@ -283,6 +283,10 @@ static int findDelimiter(char * data, int size, string delimiter){
 			posInDelimiter++;
 			if(posInDelimiter==delimiter.size()) return i-delimiter.size()+1;
 		}else{
+			if(posInDelimiter>0){
+				// Stay at the same position to try matching again
+				i--;
+			}
 			posInDelimiter=0;
 		}
 	}
