@@ -26,7 +26,7 @@ HEADER_URIPARSER = "$(OF_PATH)/libs/uriparser/include"
 HEADER_PUGIXML = "$(OF_PATH)/libs/pugixml/include"
 
 //------- Libraries
-LIB_OF = "$(OF_PATH)/libs/openFrameworksCompiled/lib/osx/openFrameworks.a"
+LIB_OF_RELEASE = "$(OF_PATH)/libs/openFrameworksCompiled/lib/osx/openFrameworks.a"
 LIB_OF_DEBUG = "$(OF_PATH)/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a"
 
 //LIB_FMOD = "$(OF_PATH)/libs/fmod/lib/macos/libfmod.dylib"
@@ -53,7 +53,7 @@ OF_CORE_FRAMEWORKS = -framework Accelerate -framework AGL -framework AppKit -fra
 
 ALWAYS_SEARCH_USER_PATHS = NO
 DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING = YES
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) GL_SILENCE_DEPRECATION=1 GLES_SILENCE_DEPRECATION=1 COREVIDEO_SILENCE_GL_DEPRECATION=1
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) GL_SILENCE_DEPRECATION=1 GLES_SILENCE_DEPRECATION=1 COREVIDEO_SILENCE_GL_DEPRECATION=1 GLM_FORCE_CTOR_INIT GLM_ENABLE_EXPERIMENTAL
 
 
 //COMPILER SETTINGS WHICH CAN BE OVERRIDDEN BY XCODE BUILD SETTINGS
